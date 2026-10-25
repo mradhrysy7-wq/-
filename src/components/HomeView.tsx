@@ -71,7 +71,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   };
 
   const categories = [
-    'كل',
+    'الكل',
     'ترتيب البيت',
     'مساحة العمل',
     'بداية اليوم',
