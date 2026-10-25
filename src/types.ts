@@ -9,6 +9,11 @@ export type PageId =
   | 'drawer'
   | 'grocery'
   | 'digital'
+  | 'wardrobe'
+  | 'mind'
+  | 'evening-screen'
+  | 'sayno'
+  | 'morning-coffee'
   | 'about'
   | 'privacy'
   | 'contact';
@@ -24,7 +29,21 @@ export interface ArticleMeta {
   date: string;
   cardColor: string;
   coverClass: string;
-  artType: 'evening' | 'desk' | 'week' | 'morning' | 'entry' | 'pause' | 'drawer' | 'grocery' | 'digital';
+  artType:
+    | 'evening'
+    | 'desk'
+    | 'week'
+    | 'morning'
+    | 'entry'
+    | 'pause'
+    | 'drawer'
+    | 'grocery'
+    | 'digital'
+    | 'wardrobe'
+    | 'mind'
+    | 'evening-screen'
+    | 'sayno'
+    | 'morning-coffee';
   asideLinks: { text: string; anchorId?: string }[];
   asideNote?: string;
 }

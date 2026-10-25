@@ -145,6 +145,58 @@ export const CardArt: React.FC<CardArtProps> = ({ type, tag }) => {
           <span className="art-label">{tag}</span>
         </div>
       );
+    case 'wardrobe':
+      return (
+        <div className="card-art wardrobe-art">
+          <div className="wardrobe-rod"></div>
+          <div className="wardrobe-hanger h1"></div>
+          <div className="wardrobe-hanger h2"></div>
+          <div className="wardrobe-cloth"></div>
+          <span className="art-label">{tag}</span>
+        </div>
+      );
+    case 'mind':
+      return (
+        <div className="card-art mind-art">
+          <div className="mind-paper">
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+          <div className="mind-leaf l1">🍃</div>
+          <div className="mind-leaf l2">✳</div>
+          <span className="art-label">{tag}</span>
+        </div>
+      );
+    case 'evening-screen':
+      return (
+        <div className="card-art screen-art">
+          <div className="night-moon"></div>
+          <div className="night-table"></div>
+          <div className="night-phone"></div>
+          <div className="night-lamp"></div>
+          <span className="art-label">{tag}</span>
+        </div>
+      );
+    case 'sayno':
+      return (
+        <div className="card-art sayno-art">
+          <div className="sayno-sun"></div>
+          <div className="sayno-envelope"></div>
+          <div className="sayno-plant">🌿</div>
+          <span className="art-label">{tag}</span>
+        </div>
+      );
+    case 'morning-coffee':
+      return (
+        <div className="card-art coffee-art">
+          <div className="coffee-sun"></div>
+          <div className="coffee-steam"></div>
+          <div className="coffee-mug"></div>
+          <div className="coffee-coaster"></div>
+          <span className="art-label">{tag}</span>
+        </div>
+      );
     default:
       return null;
   }
@@ -229,6 +281,53 @@ export const CoverArt: React.FC<{ type: string }> = ({ type }) => {
             <i></i>
             <b></b>
           </div>
+        </div>
+      );
+    case 'wardrobe':
+      return (
+        <div className="article-cover cover-wardrobe">
+          <div className="wardrobe-rod"></div>
+          <div className="wardrobe-hanger h1"></div>
+          <div className="wardrobe-hanger h2"></div>
+          <div className="wardrobe-cloth"></div>
+        </div>
+      );
+    case 'mind':
+      return (
+        <div className="article-cover cover-mind">
+          <div className="mind-paper">
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+          <div className="mind-leaf l1">🍃</div>
+          <div className="mind-leaf l2">✳</div>
+        </div>
+      );
+    case 'evening-screen':
+      return (
+        <div className="article-cover cover-evening-screen">
+          <div className="night-moon"></div>
+          <div className="night-table"></div>
+          <div className="night-phone"></div>
+          <div className="night-lamp"></div>
+        </div>
+      );
+    case 'sayno':
+      return (
+        <div className="article-cover cover-sayno">
+          <div className="sayno-sun"></div>
+          <div className="sayno-envelope"></div>
+          <div className="sayno-plant">🌿</div>
+        </div>
+      );
+    case 'morning-coffee':
+      return (
+        <div className="article-cover cover-morning-coffee">
+          <div className="coffee-sun"></div>
+          <div className="coffee-steam"></div>
+          <div className="coffee-mug"></div>
+          <div className="coffee-coaster"></div>
         </div>
       );
     default:

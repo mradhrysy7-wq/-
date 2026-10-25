@@ -5,10 +5,42 @@ import { Footer } from './components/Footer';
 import { HomeView } from './components/HomeView';
 import { ArticleView } from './components/ArticleView';
 import { InfoView } from './components/InfoView';
+import { CalmTimerModal } from './components/CalmTimerModal';
+import { BreatheModal } from './components/BreatheModal';
+import { WeeklyPlannerModal } from './components/WeeklyPlannerModal';
 import { PAGE_TITLES } from './data/articles';
 
 export const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<PageId>('home');
+  const [activeCategory, setActiveCategory] = useState<string>('الكل');
+
+  // Modals state
+  const [timerOpen, setTimerOpen] = useState<boolean>(false);
+  const [breatheOpen, setBreatheOpen] = useState<boolean>(false);
+  const [plannerOpen, setPlannerOpen] = useState<boolean>(false);
+
+  // Bookmarked articles state
+  const [savedArticles, setSavedArticles] = useState<string[]>(() => {
+    try {
+      const stored = localStorage.getItem('ala-mahal-bookmarks');
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const toggleSaveArticle = (id: string) => {
+    setSavedArticles((prev) => {
+      const updated = prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id];
+      try {
+        localStorage.setItem('ala-mahal-bookmarks', JSON.stringify(updated));
+      } catch {
+        /* ignore */
+      }
+      return updated;
+    });
+  };
+
   const [theme, setTheme] = useState<ThemeMode>(() => {
     try {
       const stored = localStorage.getItem('ala-mahal-theme');
@@ -96,16 +128,41 @@ export const App: React.FC = () => {
     }
   };
 
+  const showSavedArticles = () => {
+    setActiveCategory('المحفوظات ★');
+    navigateTo('home', 'articles');
+  };
+
   const renderContent = () => {
     if (currentPage === 'home') {
-      return <HomeView onNavigate={navigateTo} />;
+      return (
+        <HomeView
+          onNavigate={navigateTo}
+          onOpenTimer={() => setTimerOpen(true)}
+          onOpenBreathe={() => setBreatheOpen(true)}
+          onOpenPlanner={() => setPlannerOpen(true)}
+          savedArticles={savedArticles}
+          onToggleSave={toggleSaveArticle}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
+      );
     }
 
     if (['about', 'privacy', 'contact'].includes(currentPage)) {
       return <InfoView pageId={currentPage} onNavigate={navigateTo} />;
     }
 
-    return <ArticleView articleId={currentPage} onNavigate={navigateTo} />;
+    return (
+      <ArticleView
+        articleId={currentPage}
+        onNavigate={navigateTo}
+        isSaved={savedArticles.includes(currentPage)}
+        onToggleSave={toggleSaveArticle}
+        onOpenTimer={() => setTimerOpen(true)}
+        onOpenBreathe={() => setBreatheOpen(true)}
+      />
+    );
   };
 
   return (
@@ -115,9 +172,21 @@ export const App: React.FC = () => {
         theme={theme}
         onNavigate={navigateTo}
         onToggleTheme={toggleTheme}
+        onOpenTimer={() => setTimerOpen(true)}
+        onOpenBreathe={() => setBreatheOpen(true)}
+        onOpenPlanner={() => setPlannerOpen(true)}
+        savedCount={savedArticles.length}
+        onShowSaved={showSavedArticles}
       />
+
       {renderContent()}
+
       <Footer onNavigate={navigateTo} />
+
+      {/* Calming Modals */}
+      <CalmTimerModal isOpen={timerOpen} onClose={() => setTimerOpen(false)} />
+      <BreatheModal isOpen={breatheOpen} onClose={() => setBreatheOpen(false)} />
+      <WeeklyPlannerModal isOpen={plannerOpen} onClose={() => setPlannerOpen(false)} />
     </div>
   );
 };
